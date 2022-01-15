@@ -44,6 +44,11 @@
         status = 0;
 
         AVAudioInputNode* inputNode = [engine inputNode];
+        if (@available(iOS 13.0, *)) {
+                [inputNode setVoiceProcessingEnabled:YES error:nil];
+        } else {
+                // Fallback on earlier versions
+        }
         AVAudioFormat* inputFormat = [inputNode outputFormatForBus: 0];
         NSNumber* nbChannels = audioSettings [AVNumberOfChannelsKey];
         NSNumber* sampleRate = audioSettings [AVSampleRateKey];
